@@ -5,7 +5,11 @@ local test_pipeline_name = 'testing';
 local windows(os) = os == 'windows';
 
 local golang_image(os, version) =
-  'golang:' + '1.11' + if windows(os) then '-windowsservercore-' + version else '';
+  if !windows(os) then 'golang:1.26.10@sha256:24a707af49702fa44f02785475d02fb752f6982d3e9c0afb7696e1f0204e7ce9'
+  else if version == '1803' then 'golang:1.11-windowsservercore-1803@sha256:5d895563d67b13f8c2fb71d845c3cf310ec1cc0de0eefd996fbb4a53247dbcce'
+  else 'golang:1.11-windowsservercore-1809@sha256:c55f32870897ac3146040f963dcf0e453311b3d0e52236ea24f7388c558a5f7d';
+
+local go_setup(os) = if windows(os) then ['. ./scripts/setup-go-windows.ps1'] else [];
 
 {
   test(os='linux', arch='amd64', version='')::
@@ -28,7 +32,7 @@ local golang_image(os, version) =
           environment: {
             GO111MODULE: 'on',
           },
-          commands: [
+          commands: go_setup(os) + [
             'go vet ./...',
           ],
           volumes: volumes,
@@ -40,7 +44,7 @@ local golang_image(os, version) =
           environment: {
             GO111MODULE: 'on',
           },
-          commands: [
+          commands: go_setup(os) + [
             'go test -cover ./...',
           ],
           volumes: volumes,
@@ -81,7 +85,7 @@ local golang_image(os, version) =
             CGO_ENABLED: '0',
             GO111MODULE: 'on',
           },
-          commands: [
+          commands: go_setup(os) + [
             'go build -v -ldflags "-X main.version=${DRONE_COMMIT_SHA:0:8}" -a -tags netgo -o release/' + os + '/' + arch + '/' + name + extension,
           ],
           when: {
@@ -98,7 +102,7 @@ local golang_image(os, version) =
             CGO_ENABLED: '0',
             GO111MODULE: 'on',
           },
-          commands: [
+          commands: go_setup(os) + [
             'go build -v -ldflags "-X main.version=${DRONE_TAG##v}" -a -tags netgo -o release/' + os + '/' + arch + '/' + name + extension,
           ],
           when: {
@@ -118,6 +122,8 @@ local golang_image(os, version) =
           image: 'plugins/docker:' + tag,
           pull: 'always',
           settings: {
+            pull_image: true,
+            no_cache: true,
             dry_run: true,
             tags: tag,
             dockerfile: 'docker/Dockerfile.' + file_suffix,
@@ -136,6 +142,8 @@ local golang_image(os, version) =
           image: 'plugins/docker:' + tag,
           pull: 'always',
           settings: {
+            pull_image: true,
+            no_cache: true,
             auto_tag: true,
             auto_tag_suffix: tag,
             daemon_off: if is_windows then 'true' else 'false',

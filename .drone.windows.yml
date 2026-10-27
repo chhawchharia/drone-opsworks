@@ -10,7 +10,7 @@ platform:
 steps:
 - name: vet
   pull: always
-  image: golang:1.11-windowsservercore-1803
+  image: golang:1.11-windowsservercore-1803@sha256:5d895563d67b13f8c2fb71d845c3cf310ec1cc0de0eefd996fbb4a53247dbcce
   commands:
   - . ./scripts/setup-go-windows.ps1
   - go vet ./...
@@ -22,7 +22,7 @@ steps:
 
 - name: test
   pull: always
-  image: golang:1.11-windowsservercore-1803
+  image: golang:1.11-windowsservercore-1803@sha256:5d895563d67b13f8c2fb71d845c3cf310ec1cc0de0eefd996fbb4a53247dbcce
   commands:
   - . ./scripts/setup-go-windows.ps1
   - go test -cover ./...
@@ -54,7 +54,7 @@ platform:
 steps:
 - name: build-push
   pull: always
-  image: golang:1.11-windowsservercore-1803
+  image: golang:1.11-windowsservercore-1803@sha256:5d895563d67b13f8c2fb71d845c3cf310ec1cc0de0eefd996fbb4a53247dbcce
   commands:
   - . ./scripts/setup-go-windows.ps1
   - "go build -v -ldflags \"-X main.version=${DRONE_COMMIT_SHA:0:8}\" -a -tags netgo -o release/windows/amd64/drone-opsworks.exe"
@@ -68,7 +68,7 @@ steps:
 
 - name: build-tag
   pull: always
-  image: golang:1.11-windowsservercore-1803
+  image: golang:1.11-windowsservercore-1803@sha256:5d895563d67b13f8c2fb71d845c3cf310ec1cc0de0eefd996fbb4a53247dbcce
   commands:
   - . ./scripts/setup-go-windows.ps1
   - "go build -v -ldflags \"-X main.version=${DRONE_TAG##v}\" -a -tags netgo -o release/windows/amd64/drone-opsworks.exe"
@@ -81,7 +81,7 @@ steps:
 
 - name: executable
   pull: always
-  image: golang:1.11-windowsservercore-1803
+  image: golang:1.11-windowsservercore-1803@sha256:5d895563d67b13f8c2fb71d845c3cf310ec1cc0de0eefd996fbb4a53247dbcce
   commands:
   - ./release/windows/amd64/drone-opsworks.exe --help
 
@@ -156,7 +156,7 @@ platform:
 steps:
 - name: build-push
   pull: always
-  image: golang:1.11-windowsservercore-1809
+  image: golang:1.11-windowsservercore-1809@sha256:c55f32870897ac3146040f963dcf0e453311b3d0e52236ea24f7388c558a5f7d
   commands:
   - . ./scripts/setup-go-windows.ps1
   - "go build -v -ldflags \"-X main.version=${DRONE_COMMIT_SHA:0:8}\" -a -tags netgo -o release/windows/amd64/drone-opsworks.exe"
@@ -170,7 +170,7 @@ steps:
 
 - name: build-tag
   pull: always
-  image: golang:1.11-windowsservercore-1809
+  image: golang:1.11-windowsservercore-1809@sha256:c55f32870897ac3146040f963dcf0e453311b3d0e52236ea24f7388c558a5f7d
   commands:
   - . ./scripts/setup-go-windows.ps1
   - "go build -v -ldflags \"-X main.version=${DRONE_TAG##v}\" -a -tags netgo -o release/windows/amd64/drone-opsworks.exe"
@@ -183,7 +183,7 @@ steps:
 
 - name: executable
   pull: always
-  image: golang:1.11-windowsservercore-1809
+  image: golang:1.11-windowsservercore-1809@sha256:c55f32870897ac3146040f963dcf0e453311b3d0e52236ea24f7388c558a5f7d
   commands:
   - ./release/windows/amd64/drone-opsworks.exe --help
 

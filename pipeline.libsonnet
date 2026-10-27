@@ -6,8 +6,8 @@ local windows(os) = os == 'windows';
 
 local golang_image(os, version) =
   if !windows(os) then 'golang:1.26.10@sha256:24a707af49702fa44f02785475d02fb752f6982d3e9c0afb7696e1f0204e7ce9'
-  else if version == '1803' then 'golang:1.11-windowsservercore-1803@sha256:5d895563d67b13f8c2fb71d845c3cf310ec1cc0de0eefd996fbb4a53247dbcce'
-  else 'golang:1.11-windowsservercore-1809@sha256:c55f32870897ac3146040f963dcf0e453311b3d0e52236ea24f7388c558a5f7d';
+  else if version == '1803' then 'golang:1.11-windowsservercore-1803'
+  else 'golang:1.11-windowsservercore-1809';
 
 local go_setup(os) = if windows(os) then ['. ./scripts/setup-go-windows.ps1'] else [];
 

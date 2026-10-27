@@ -122,8 +122,6 @@ local go_setup(os) = if windows(os) then ['. ./scripts/setup-go-windows.ps1'] el
           image: 'plugins/docker:' + tag,
           pull: 'always',
           settings: {
-            pull_image: true,
-            no_cache: true,
             dry_run: true,
             tags: tag,
             dockerfile: 'docker/Dockerfile.' + file_suffix,
@@ -142,8 +140,6 @@ local go_setup(os) = if windows(os) then ['. ./scripts/setup-go-windows.ps1'] el
           image: 'plugins/docker:' + tag,
           pull: 'always',
           settings: {
-            pull_image: true,
-            no_cache: true,
             auto_tag: true,
             auto_tag_suffix: tag,
             daemon_off: if is_windows then 'true' else 'false',

@@ -83,8 +83,6 @@ steps:
   pull: always
   image: plugins/docker:linux-amd64
   settings:
-    pull_image: true
-    no_cache: true
     daemon_off: false
     dockerfile: docker/Dockerfile.linux.amd64
     dry_run: true
@@ -102,8 +100,6 @@ steps:
   pull: always
   image: plugins/docker:linux-amd64
   settings:
-    pull_image: true
-    no_cache: true
     auto_tag: true
     auto_tag_suffix: linux-amd64
     daemon_off: false
@@ -171,8 +167,6 @@ steps:
   pull: always
   image: plugins/docker:linux-arm64
   settings:
-    pull_image: true
-    no_cache: true
     daemon_off: false
     dockerfile: docker/Dockerfile.linux.arm64
     dry_run: true
@@ -190,8 +184,6 @@ steps:
   pull: always
   image: plugins/docker:linux-arm64
   settings:
-    pull_image: true
-    no_cache: true
     auto_tag: true
     auto_tag_suffix: linux-arm64
     daemon_off: false
@@ -259,8 +251,6 @@ steps:
   pull: always
   image: plugins/docker:linux-arm
   settings:
-    pull_image: true
-    no_cache: true
     daemon_off: false
     dockerfile: docker/Dockerfile.linux.arm
     dry_run: true
@@ -278,8 +268,6 @@ steps:
   pull: always
   image: plugins/docker:linux-arm
   settings:
-    pull_image: true
-    no_cache: true
     auto_tag: true
     auto_tag_suffix: linux-arm
     daemon_off: false

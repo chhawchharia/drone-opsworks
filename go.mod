@@ -1,7 +1,5 @@
 module github.com/drone-plugins/drone-opsworks
 
-go 1.26.10
-
 require (
 	github.com/aws/aws-sdk-go v1.16.31
 	github.com/drone/drone-go v0.0.0-20160502151758-eaa41f7836a1
